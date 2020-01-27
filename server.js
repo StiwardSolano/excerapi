@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI || 'mongodb+srv://usertst:usertst@cluster0-mwkmh.mongodb.net/test?retryWrites=true&w=majority';
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 );
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -22,9 +22,11 @@ connection.once('open', () => {
 
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
+const statsRouter = require('./routes/stats');
 
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
+app.use('/stats', statsRouter)
 
 /* app.use(express.static(path.join(__dirname, 'build')));
 */
